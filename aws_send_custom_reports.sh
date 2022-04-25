@@ -9,13 +9,13 @@
 
 # CloudWatchに送信するカスタムレポート関数
 output_custom_reports () {
-    REGION=$2
-    NAMESPACE=$3
-    INSTANCE_ID=$4
-    HOST_NAME=$5
-    UNIT=$6
-    METRIC_NAME=$7
-    VALUE=$8
+    REGION=$1
+    NAMESPACE=$2
+    INSTANCE_ID=$3
+    HOST_NAME=$4
+    UNIT=$5
+    METRIC_NAME=$6
+    VALUE=$7
 
     if [ "${VALUE}" != "" ]; then
         echo "${METRIC_NAME}(${UNIT}): ${VALUE}"
@@ -30,26 +30,15 @@ REGION="REGION" # "ap-northeast-1"
 NAMESPACE="NAMESPACE"
 INSTANCE_ID="INSTANCE_ID"
 HOST_NAME="HOST_NAME"
- 
-# シェルスクリプトの引数を取得する。
-MODE=$1
-# 取得した引数を全て小文字にする。
-MODE=`echo "${MODE}" | tr 'A-Z' 'a-z'`
-
-IS_AWS=0
-# 引数がawsであればIS_AWS=1にする。
-if [ "${MODE}" = "aws" ]; then
-  IS_AWS=1
-fi
 
 # Apacheプロセス数をpsコマンドで取得する。
 NUMBER_OF_PROCESSES=$(( `ps -e | grep httpd | wc -l` - 1 ))
-output_custom_reports "${IS_AWS}" "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "NumberOfApacheProcesses" "${NUMBER_OF_PROCESSES}"
+output_custom_reports "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "NumberOfApacheProcesses" "${NUMBER_OF_PROCESSES}"
  
 # 80番ポート接続数と待ち受け状態をnetstatコマンドで取得する。
 PORT_COUNT80=`netstat -an | grep :80 | grep "ESTABLISHED\|LISTEN" | wc -l`
-output_custom_reports "${IS_AWS}" "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "PortCount80" "${PORT_COUNT80}"
+output_custom_reports "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "PortCount80" "${PORT_COUNT80}"
  
 # 443番ポート接続数と待ち受け状態をnetstatコマンドで取得する。
 PORT_COUNT443=`netstat -an | grep :443 | grep "ESTABLISHED\|LISTEN" | wc -l`
-output_custom_reports "${IS_AWS}" "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "PortCount443" "${PORT_COUNT443}"
+output_custom_reports "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "PortCount443" "${PORT_COUNT443}"
