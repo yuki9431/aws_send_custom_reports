@@ -24,9 +24,11 @@ output_custom_reports () {
 }
  
 # CloudWatchのリージョンを指定
+# TODO: #1 デフォルトは東京リージョン、引数があれば変更する
 REGION="REGION" # "ap-northeast-1"
 
-#AWS CLIのaws cloudwatch put-metric-dataで使用するnamespace, instanceId, Hostnameを指定する。
+#AWS CLIのaws cloudwatch put-metric-dataで使用するnamespace, instanceId, Hostnameを指定する
+# TODO: #2 引数でNamespace, Instance_idを取得する。hostnameコマンドでホスト名を取得
 NAMESPACE="NAMESPACE"
 INSTANCE_ID="INSTANCE_ID"
 HOST_NAME="HOST_NAME"
