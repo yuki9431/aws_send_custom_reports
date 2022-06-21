@@ -3,15 +3,16 @@
 cd $(dirname "$0")
 . aws_send_custom_reports.sh
 
-# stdout: Send standard output 
-# aws: Send aws cloudWatch
 MODE="aws"
 
-REGION=$1 # "ap-northeast-1"
-NAMESPACE=$2 # "namespace"
-INSTANCE_ID=$3 # "i-xxxxxxxxxxx"
-HOST_NAME=$4 # "host_name"
-TARGET_PORT=$5 # "443"
+# Required arguments
+INSTANCE_ID=${1:?"INSTANCE_ID must be specified"}
+TARGET_PORT=${2:?"TARGET_PORT must be specified"}
+
+# Optional arguments
+NAMESPACE=${3:-"aws_send_custom_reports"}
+REGION=${4:-"ap-northeast-1"}
+HOST_NAME=${5:-"$(hostname)"}
 
 # Check the number of connections and listening state of the port
 PORT_COUNT=$(netstat -an | grep ":${TARGET_PORT}" | grep "ESTABLISHED\|LISTEN" | wc -l)

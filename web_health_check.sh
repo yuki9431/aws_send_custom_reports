@@ -3,15 +3,17 @@
 cd $(dirname "$0")
 . aws_send_custom_reports.sh
 
-# stdout: Send standard output 
-# aws: Send aws cloudWatch
 MODE="aws"
 
-REGION=$1 # "ap-northeast-1"
-NAMESPACE=$2 # "namespace"
-INSTANCE_ID=$3 # "i-xxxxxxxxxxx"
-HOST_NAME=$4 # "host_name"
-TARGET_HOST=$5 # "localhost:8080/health.html"
+# Required arguments
+INSTANCE_ID=${1:?"INSTANCE_ID must be specified"}
+TARGET_HOST=${2:?"TARGET_HOST must be specified"}
+
+# Optional arguments
+NAMESPACE=${3:-"aws_send_custom_reports"}
+REGION=${4:-"ap-northeast-1"}
+HOST_NAME=${5:-"$(hostname)"}
+
 
 # Health check of TARGET_HOST
 http_code=$(curl ${TARGET_HOST} -s -w '%{http_code}\n' -o /dev/null)
