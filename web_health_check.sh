@@ -21,6 +21,12 @@ else
     HostIsHealthy=0
 fi
 
-output_custom_reports "${MODE}" "${REGION}" "${NAMESPACE}" "${INSTANCE_ID}" "${HOST_NAME}" "Count" "HostIsHealthy" "${HostIsHealthy}"
-
-exit 0
+output_custom_reports \
+    "${MODE}" \
+    "${REGION}" \
+    "${NAMESPACE}" \
+    "${INSTANCE_ID}" \
+    "${HOST_NAME}" \
+    "Count" \
+    "HostIsHealthy" \
+    "${HostIsHealthy}"

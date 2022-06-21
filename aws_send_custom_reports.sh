@@ -15,7 +15,13 @@ output_custom_reports () {
     if [ "${MODE}" = "aws" ]; then
         # CloudWatchにカスタムメトリクスを送信する。
         if [ "${MODE}" != "" ]; then
-            aws cloudwatch put-metric-data --metric-name "${METRIC_NAME}" --namespace "${NAMESPACE}" --dimensions "InstanceId=${INSTANCE_ID}, Hostname=${HOST_NAME}" --value "${VALUE}" --unit "${UNIT}" --region ${REGION}
+            aws cloudwatch put-metric-data \
+            --metric-name "${METRIC_NAME}" \
+            --namespace "${NAMESPACE}" \
+            --dimensions "InstanceId=${INSTANCE_ID}, Hostname=${HOST_NAME}" \
+            --value "${VALUE}" \
+            --unit "${UNIT}" \
+            --region ${REGION}
         fi
     else
         # 標準出力にメトリクスの内容を表示する。
