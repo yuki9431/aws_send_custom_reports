@@ -1,3 +1,5 @@
+AWS=/usr/local/bin/aws
+
 output_custom_reports () {
 
     MODE=${1:?"MODE must be specified"}
@@ -12,7 +14,7 @@ output_custom_reports () {
     if [ "${MODE}" = "aws" ]; then
         # Send metrics to AWS Cloudwatch
         if [ "${MODE}" != "" ]; then
-            aws cloudwatch put-metric-data \
+            ${AWS} cloudwatch put-metric-data \
             --metric-name "${METRIC_NAME}" \
             --namespace "${NAMESPACE}" \
             --dimensions "InstanceId=${INSTANCE_ID}, Hostname=${HOST_NAME}" \
