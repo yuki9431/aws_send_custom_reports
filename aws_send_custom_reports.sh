@@ -1,19 +1,16 @@
-
 output_custom_reports () {
 
-    # 引数の整合性確認
-
-    MODE=$1
-    REGION=$2
-    NAMESPACE=$3
-    INSTANCE_ID=$4
-    HOST_NAME=$5
-    UNIT=$6
-    METRIC_NAME=$7
-    VALUE=$8
+    MODE=${1:?"MODE must be specified"}
+    REGION=${2:?"REGION must be specified"}
+    NAMESPACE=${3:?"NAMESPACE must be specified"}
+    INSTANCE_ID=${4:?"INSTANCE_ID must be specified"}
+    HOST_NAME=${5:?"HOST_NAME must be specified"}
+    UNIT=${6:?"UNIT must be specified"}
+    METRIC_NAME=${7:?"METRIC_NAME must be specified"}
+    VALUE=${8:?"VALUE must be specified"}
 
     if [ "${MODE}" = "aws" ]; then
-        # CloudWatchにカスタムメトリクスを送信する。
+        # Send metrics to AWS Cloudwatch
         if [ "${MODE}" != "" ]; then
             aws cloudwatch put-metric-data \
             --metric-name "${METRIC_NAME}" \
@@ -24,7 +21,7 @@ output_custom_reports () {
             --region ${REGION}
         fi
     else
-        # 標準出力にメトリクスの内容を表示する。
+        # Send metrics to stdout
         echo "${METRIC_NAME}(${UNIT}): ${VALUE}"    
     fi
 }
