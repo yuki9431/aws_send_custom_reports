@@ -1,11 +1,35 @@
 # aws_send_custom_reports
-Send information to AWS Cloudwatch for process and port monitoring.
+Send information to AWS Cloudwatch.
 
-## 元PG:
-https://www.magtranetwork.com/aws/amazon_cloudwatch_output_custom_metrics.html
+## Requirement
+You have aws-cli installed on your server.
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
 
-## TODO: 
-- Log出力
-- インスタンスIDとホスト名の自動取得
-- 必要な情報をべた書きじゃなくて引数で取得できるように
-- エラーハンドリング
+## How to Use
+
+```sh
+# Web Health Check
+./web_health_check.sh "INSTANCE_ID" "TARGET_HOST" "NAMESPACE" "REGION" "HOST_NAME"
+
+# Port Monitoring
+./port_monitoring.sh "INSTANCE_ID" "TARGET_PORT" "NAMESPACE" "REGION" "HOST_NAME"
+
+```
+
+## Required arguments
+- INSTANCE_ID
+- TARGET_HOST or TARGET_PORT
+
+## Optional arguments
+- NAMESPACE
+- REGION
+- HOST_NAME
+
+## Debug Mode
+Change the MODE to "stdout" if you need to debug mode.
+
+## Author
+[Dillen H. Tomida](https://twitter.com/t0mihir0)
+
+## License
+This software is licensed under the MIT license, see [LICENSE](./LICENSE) for more information.
