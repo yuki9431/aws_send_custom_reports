@@ -1,5 +1,6 @@
 #!/bin/bash
 
+cd $(dirname "$0")
 . aws_send_custom_reports.sh
 
 # stdout: Send standard output 
